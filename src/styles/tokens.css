@@ -1,0 +1,107 @@
+/**
+ * Design tokens — identità visiva originale del prototipo, palette validata per
+ * leggibilità e sicurezza CVD con lo script della skill dataviz (node validate_palette.js).
+ * Nessun framework utility: tutto lo styling del progetto legge da queste variabili.
+ *
+ * Di default il tema segue le preferenze di sistema (prefers-color-scheme), e si aggiorna
+ * dal vivo se cambiano mentre la pagina è aperta — nessun JS coinvolto in questo caso, è
+ * puro CSS. Se l'utente sceglie esplicitamente un tema col pulsante in alto, l'attributo
+ * [data-theme] su <html> vince sempre sulla preferenza di sistema (vedi useTheme.ts e lo
+ * script inline in index.html, che pre-imposta l'attributo prima del paint solo per le
+ * scelte esplicite salvate, per evitare il flash del tema sbagliato).
+ */
+:root {
+  /* Superfici (scala dalla più scura alla più chiara: bg < surface < surface-raised) */
+  --color-bg: #0d1318;
+  --color-surface: #141c22;
+  --color-surface-raised: #1a232b;
+  --color-border: rgba(255, 255, 255, 0.09);
+  --color-border-strong: rgba(255, 255, 255, 0.18);
+
+  /* Inchiostro */
+  --color-ink: #eef3f7;
+  --color-ink-secondary: #a6b4c0;
+  --color-ink-muted: #71808d;
+
+  /* Brand — azzurro */
+  --color-accent: #4a9cd6;
+  --color-accent-strong: #6fb3e0;
+  --color-accent-tint: #182a3a;
+
+  /* Waterfall / semantica delta (validate: PASS su tutti i check con etichette dirette) */
+  --color-decrease: #cc6a4a;
+  --color-decrease-tint: #2b2019;
+  --color-increase: #1f9e6e;
+  --color-increase-tint: #142a21;
+
+  /* Tipografia — stack di sistema, nessun font caricato da servizi esterni */
+  --font-sans: -apple-system, 'SF Pro Text', 'Segoe UI', system-ui, Roboto, sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', 'Cascadia Code', Menlo, monospace;
+
+  /* Spaziature */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+
+  /* Raggio / ombra */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
+  --shadow-card: 0 1px 0 rgba(255, 255, 255, 0.03), 0 20px 40px -24px rgba(0, 0, 0, 0.6);
+}
+
+/* Nessuna scelta esplicita salvata: segue il sistema. Se il sistema è chiaro, sovrascrive
+   i token scuri di base — se è scuro, i token di base (già scuri) restano. */
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme]) {
+    --color-bg: #f2f5f8;
+    --color-surface: #fdfeff;
+    --color-surface-raised: #ffffff;
+    --color-border: rgba(15, 30, 43, 0.1);
+    --color-border-strong: rgba(15, 30, 43, 0.2);
+
+    --color-ink: #14212c;
+    --color-ink-secondary: #4f6273;
+    --color-ink-muted: #8598a6;
+
+    --color-accent: #1f6fa8;
+    --color-accent-strong: #175a87;
+    --color-accent-tint: #dceaf4;
+
+    --color-decrease: #c1502e;
+    --color-decrease-tint: #f4ded4;
+    --color-increase: #2f8f5b;
+    --color-increase-tint: #dcefe3;
+
+    --shadow-card: 0 1px 2px rgba(15, 30, 43, 0.04), 0 12px 32px -16px rgba(15, 30, 43, 0.16);
+  }
+}
+
+/* Scelta esplicita dell'utente (pulsante tema): vince sempre sul sistema. */
+:root[data-theme='light'] {
+  --color-bg: #f2f5f8;
+  --color-surface: #fdfeff;
+  --color-surface-raised: #ffffff;
+  --color-border: rgba(15, 30, 43, 0.1);
+  --color-border-strong: rgba(15, 30, 43, 0.2);
+
+  --color-ink: #14212c;
+  --color-ink-secondary: #4f6273;
+  --color-ink-muted: #8598a6;
+
+  --color-accent: #1f6fa8;
+  --color-accent-strong: #175a87;
+  --color-accent-tint: #dceaf4;
+
+  --color-decrease: #c1502e;
+  --color-decrease-tint: #f4ded4;
+  --color-increase: #2f8f5b;
+  --color-increase-tint: #dcefe3;
+
+  --shadow-card: 0 1px 2px rgba(15, 30, 43, 0.04), 0 12px 32px -16px rgba(15, 30, 43, 0.16);
+}

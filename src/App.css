@@ -1,0 +1,125 @@
+.page {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: var(--space-7) var(--space-5) var(--space-8);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-7);
+}
+
+.page__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-5);
+}
+
+.page__header-text {
+  max-width: 42rem;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.page__eyebrow {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-accent-strong);
+}
+
+.page__title {
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: var(--color-ink);
+}
+
+.page__subtitle {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--color-ink-secondary);
+}
+
+.calculator {
+  display: grid;
+  grid-template-columns: minmax(0, 22rem) minmax(0, 1fr);
+  gap: var(--space-5);
+  align-items: stretch;
+}
+
+.calculator__panel {
+  min-width: 0;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.calculator__panel--wide {
+  grid-column: 1 / -1;
+}
+
+.calculator__section-title {
+  font-size: 1.0625rem;
+  font-weight: 700;
+  color: var(--color-ink);
+}
+
+.result-eyebrow {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--color-ink-secondary);
+}
+
+.result-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 11rem;
+  gap: var(--space-5);
+  align-items: stretch;
+}
+
+.mensilita-field {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.mensilita-field__label {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--color-ink-secondary);
+}
+
+@media (max-width: 860px) {
+  .calculator {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .calculator__panel {
+    padding: var(--space-5);
+  }
+}
+
+@media (max-width: 560px) {
+  .result-split {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .page {
+    padding: var(--space-6) var(--space-4) var(--space-7);
+  }
+}

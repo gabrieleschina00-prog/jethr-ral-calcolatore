@@ -1,0 +1,25 @@
+.segmented-toggle {
+  display: inline-flex;
+  padding: 3px;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+}
+
+.segmented-toggle button {
+  border: none;
+  background: transparent;
+  padding: var(--space-1) var(--space-4);
+  border-radius: 999px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-ink-secondary);
+  cursor: pointer;
+  transition: background 120ms ease, color 120ms ease;
+}
+
+.segmented-toggle button.is-active {
+  background: var(--color-surface-raised);
+  color: var(--color-ink);
+  box-shadow: 0 1px 3px rgba(15, 30, 43, 0.15);
+}
