@@ -15,7 +15,9 @@ import {
   ADDIZIONALE_COMUNALE_MILANO,
   CUNEO_FISCALE,
   DETRAZIONE_LAVORO_DIPENDENTE,
+  INPS_ALIQUOTA_AGGIUNTIVA_IVS,
   INPS_ALIQUOTA_DIPENDENTE,
+  INPS_SOGLIA_AGGIUNTIVA_IVS,
   MENSILITA_DEFAULT,
   SCAGLIONI_ADDIZIONALE_REGIONALE_LOMBARDIA,
   SCAGLIONI_IRPEF,
@@ -80,7 +82,8 @@ function calcolaUlterioreDetrazione(redditoComplessivo: number): number {
 export function calculateNetSalary(ral: number, mensilita: Mensilita = MENSILITA_DEFAULT): CalculationResult {
   const ralValida = Number.isFinite(ral) && ral > 0 ? ral : 0
 
-  const contributiInps = ralValida * INPS_ALIQUOTA_DIPENDENTE
+  const contributoAggiuntivoIvs = Math.max(0, ralValida - INPS_SOGLIA_AGGIUNTIVA_IVS) * INPS_ALIQUOTA_AGGIUNTIVA_IVS
+  const contributiInps = ralValida * INPS_ALIQUOTA_DIPENDENTE + contributoAggiuntivoIvs
   const imponibileFiscale = ralValida - contributiInps
 
   // Nel nostro caso (unica fonte di reddito, nessun onere deducibile) reddito complessivo
@@ -162,7 +165,7 @@ function costruisciStep(v: {
 
   return [
     { id: 'ral', label: 'RAL', description: 'Retribuzione annua lorda di partenza.', kind: 'totale', delta: v.ral, runningTotal: v.ral },
-    step('inps', 'Contributi INPS', "9,19% della RAL, trattenuti a favore del fondo pensione.", 'trattenuta', -v.contributiInps),
+    step('inps', 'Contributi INPS', "9,19% della RAL, più l'1% aggiuntivo IVS oltre 56.224€, trattenuti a favore del fondo pensione.", 'trattenuta', -v.contributiInps),
     step('irpef', 'IRPEF netta', 'Imposta nazionale sul reddito, già al netto delle detrazioni da lavoro dipendente e del cuneo fiscale.', 'trattenuta', -v.irpefNetta),
     step('addizionaleRegionale', 'Addizionale regionale (Lombardia)', 'Imposta regionale a scaglioni sull’imponibile fiscale.', 'trattenuta', -v.addizionaleRegionale),
     step('addizionaleComunale', 'Addizionale comunale (Milano)', 'Aliquota unica 0,80% se l’imponibile supera 23.000€.', 'trattenuta', -v.addizionaleComunale),

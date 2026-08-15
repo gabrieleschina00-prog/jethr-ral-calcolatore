@@ -5,9 +5,9 @@
  * (non recuperato a memoria) in data 13/08/2026. Le fonti sono citate voce per voce.
  *
  * Semplificazioni deliberate del prototipo (vedi anche AssumptionsNote in UI):
- * - si ignora il massimale contributivo INPS e l'aliquota aggiuntiva IVS dell'1%
- *   (rilevanti solo sopra ~56.224 €/anno e dipendenti dall'anzianità contributiva
- *   ante/post 1996 del lavoratore — dettaglio fuori scope per un caso standard);
+ * - si ignora il massimale contributivo INPS (122.295 €/anno per il 2026): rilevante solo
+ *   per lavoratori nel sistema contributivo puro (iscritti dal 1996 in poi), quindi
+ *   dipendente da un dato anagrafico fuori scope per un caso standard;
  * - si esclude il vecchio "trattamento integrativo" (ex bonus Renzi, fino a 1.200 €,
  *   soggetto a test di capienza IRPEF): le fonti secondarie consultate non descrivono
  *   in modo univoco la sua interazione con la somma integrativa/ulteriore detrazione
@@ -18,6 +18,13 @@
 /** Aliquota contributi INPS (IVS, Fondo Pensioni Lavoratori Dipendenti) a carico del lavoratore.
  * Fonte: Circolare INPS n. 6 del 30/01/2026, coerente con Circolare INPS n. 108/2025. */
 export const INPS_ALIQUOTA_DIPENDENTE = 0.0919
+
+/** Aliquota aggiuntiva IVS (art. 3-ter L. 438/1992) sulla quota di RAL che eccede il primo
+ * scaglione di retribuzione pensionabile — si applica a tutti i lavoratori dipendenti,
+ * indipendentemente dal sistema contributivo/retributivo.
+ * Fonte: Circolare INPS n. 6 del 30/01/2026, primo scaglione fissato a 56.224 €/anno. */
+export const INPS_ALIQUOTA_AGGIUNTIVA_IVS = 0.01
+export const INPS_SOGLIA_AGGIUNTIVA_IVS = 56_224
 
 /** Scaglioni IRPEF nazionali 2026, marginali (ogni aliquota si applica solo alla porzione
  * di reddito compresa nello scaglione).

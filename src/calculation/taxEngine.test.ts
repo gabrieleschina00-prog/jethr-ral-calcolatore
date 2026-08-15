@@ -1,17 +1,19 @@
 /**
- * Casi di riferimento calcolati a mano (vedi commenti) per tre RAL che attraversano fasce
+ * Casi di riferimento calcolati a mano (vedi commenti) per RAL che attraversano fasce
  * diverse della catena di calcolo:
  * - 25.000€: dentro la fascia 15-28k della detrazione lavoro dipendente, dentro la fascia
  *   0-32k dell'ulteriore detrazione del cuneo fiscale, sotto la soglia di esenzione comunale;
  * - 40.000€: dentro la fascia 28-50k IRPEF, ulteriore detrazione in fase di decrescita
  *   (32-40k), sopra la soglia comunale;
  * - 60.000€: aliquota IRPEF massima, nessuna detrazione lavoro dipendente, nessun cuneo
- *   fiscale (RC oltre 50.000/40.000).
+ *   fiscale (RC oltre 50.000/40.000), già sopra la soglia dell'aliquota aggiuntiva IVS;
+ * - 70.000€: isola il contributo aggiuntivo IVS dell'1% oltre 56.224€ di RAL.
  *
  * La tolleranza di 2 decimali assorbe solo gli arrotondamenti in virgola mobile: i valori
  * attesi sono calcolati a mano con le stesse formule documentate in constants.ts.
  */
 import { describe, expect, it } from 'vitest'
+import { INPS_ALIQUOTA_AGGIUNTIVA_IVS, INPS_ALIQUOTA_DIPENDENTE, INPS_SOGLIA_AGGIUNTIVA_IVS } from './constants'
 import { calculateNetSalary } from './taxEngine'
 
 describe('calculateNetSalary', () => {
@@ -50,17 +52,35 @@ describe('calculateNetSalary', () => {
   it('RAL 60.000€ — fascia massima, nessuna detrazione né cuneo fiscale', () => {
     const r = calculateNetSalary(60_000)
 
-    expect(r.contributiInps).toBeCloseTo(5514, 2)
-    expect(r.imponibileFiscale).toBeCloseTo(54_486, 2)
-    expect(r.irpefLorda).toBeCloseTo(15_628.98, 2)
+    expect(r.contributiInps).toBeCloseTo(5551.76, 2)
+    expect(r.imponibileFiscale).toBeCloseTo(54_448.24, 2)
+    expect(r.irpefLorda).toBeCloseTo(15_612.74, 2)
     expect(r.detrazioneLavoroDipendente).toBe(0)
     expect(r.sommaIntegrativa).toBe(0)
     expect(r.ulterioreDetrazione).toBe(0)
-    expect(r.irpefNetta).toBeCloseTo(15_628.98, 2)
-    expect(r.addizionaleRegionale).toBeCloseTo(845.91, 1)
-    expect(r.addizionaleComunale).toBeCloseTo(435.888, 2)
-    expect(r.nettoAnnuo).toBeCloseTo(37_575.22, 1)
-    expect(r.nettoMensile).toBeCloseTo(2890.4, 1)
+    expect(r.irpefNetta).toBeCloseTo(15_612.74, 2)
+    expect(r.addizionaleRegionale).toBeCloseTo(845.25, 1)
+    expect(r.addizionaleComunale).toBeCloseTo(435.586, 2)
+    expect(r.nettoAnnuo).toBeCloseTo(37_554.66, 1)
+    expect(r.nettoMensile).toBeCloseTo(2888.82, 1)
+  })
+
+  it('RAL 70.000€ — isola il contributo aggiuntivo IVS 1% oltre 56.224€', () => {
+    const r = calculateNetSalary(70_000)
+
+    const attesoAggiuntivoIvs = (70_000 - INPS_SOGLIA_AGGIUNTIVA_IVS) * INPS_ALIQUOTA_AGGIUNTIVA_IVS
+    expect(r.contributiInps).toBeCloseTo(70_000 * INPS_ALIQUOTA_DIPENDENTE + attesoAggiuntivoIvs, 2)
+    expect(r.contributiInps).toBeCloseTo(6570.76, 2)
+    expect(r.imponibileFiscale).toBeCloseTo(63_429.24, 2)
+    expect(r.irpefLorda).toBeCloseTo(19_474.57, 2)
+    expect(r.detrazioneLavoroDipendente).toBe(0)
+    expect(r.sommaIntegrativa).toBe(0)
+    expect(r.ulterioreDetrazione).toBe(0)
+    expect(r.irpefNetta).toBeCloseTo(19_474.57, 2)
+    expect(r.addizionaleRegionale).toBeCloseTo(1000.63, 1)
+    expect(r.addizionaleComunale).toBeCloseTo(507.434, 2)
+    expect(r.nettoAnnuo).toBeCloseTo(42_446.61, 1)
+    expect(r.nettoMensile).toBeCloseTo(3265.12, 1)
   })
 
   it('la somma degli step ricostruisce esattamente il netto annuo', () => {

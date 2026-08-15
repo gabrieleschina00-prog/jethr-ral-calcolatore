@@ -10,7 +10,7 @@ interface SalaryInputProps {
   step?: number
 }
 
-export function SalaryInput({ value, onChange, min = 15_000, max = 150_000, step = 500 }: SalaryInputProps) {
+export function SalaryInput({ value, onChange, min = 0, max = 300_000, step = 500 }: SalaryInputProps) {
   const [testo, setTesto] = useState(() => formatMigliaia(value))
   const focusedRef = useRef(false)
 
