@@ -1,21 +1,18 @@
-import { useEffect, useRef, useState, type CSSProperties } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { formatMigliaia, parseImportoDigitato } from '../format'
 import './SalaryInput.css'
 
 interface SalaryInputProps {
   value: number
   onChange: (value: number) => void
-  min?: number
-  max?: number
-  step?: number
 }
 
-export function SalaryInput({ value, onChange, min = 0, max = 300_000, step = 500 }: SalaryInputProps) {
+export function SalaryInput({ value, onChange }: SalaryInputProps) {
   const [testo, setTesto] = useState(() => formatMigliaia(value))
   const focusedRef = useRef(false)
 
-  // Riflette i cambi di valore arrivati dallo slider (o da fuori) nel campo testo,
-  // ma solo quando l'utente non ci sta digitando dentro.
+  // Riflette i cambi di valore arrivati da fuori nel campo testo, ma solo quando
+  // l'utente non ci sta digitando dentro.
   useEffect(() => {
     if (!focusedRef.current) setTesto(formatMigliaia(value))
   }, [value])
@@ -52,24 +49,7 @@ export function SalaryInput({ value, onChange, min = 0, max = 300_000, step = 50
           }}
           onChange={(e) => handleTextChange(e.target.value)}
           onBlur={handleBlur}
-          aria-describedby="ral-hint"
         />
-      </div>
-
-      <input
-        className="salary-input__slider"
-        type="range"
-        min={min}
-        max={max}
-        step={step}
-        value={Math.min(Math.max(value, min), max)}
-        onChange={(e) => onChange(Number(e.target.value))}
-        aria-label="Stipendio lordo annuo, esplorazione rapida"
-        style={{ '--_fill': `${((Math.min(Math.max(value, min), max) - min) / (max - min)) * 100}%` } as CSSProperties}
-      />
-      <div className="salary-input__range-labels" id="ral-hint">
-        <span>{formatMigliaia(min)} €</span>
-        <span>{formatMigliaia(max)} €</span>
       </div>
     </div>
   )
