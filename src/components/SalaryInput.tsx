@@ -5,12 +5,40 @@ import './SalaryInput.css'
 interface SalaryInputProps {
   value: number
   onChange: (value: number) => void
-  min?: number
-  max?: number
-  step?: number
 }
 
-export function SalaryInput({ value, onChange, min = 0, max = 1_000_000, step = 500 }: SalaryInputProps) {
+const SLIDER_MIN = 0
+const SLIDER_MAX = 300_000
+const FASCIA_PRECISA_MIN = 15_000
+const FASCIA_PRECISA_MAX = 150_000
+const POSIZIONE_MAX = 1000
+const POSIZIONE_FASCIA_MIN = 150
+const POSIZIONE_FASCIA_MAX = 850
+
+/** Mappa RAL <-> posizione slider (0-1000) in tre tratti: agli estremi (sotto 15k, sopra
+ * 150k) pochi passi coprono molti euro, nella fascia 15-150k — dove ricade la maggior parte
+ * degli stipendi — lo stesso spazio è molto più fine, per un trascinamento preciso. */
+function valoreAPosizione(valore: number): number {
+  if (valore <= FASCIA_PRECISA_MIN) return (valore / FASCIA_PRECISA_MIN) * POSIZIONE_FASCIA_MIN
+  if (valore <= FASCIA_PRECISA_MAX) {
+    const proporzione = (valore - FASCIA_PRECISA_MIN) / (FASCIA_PRECISA_MAX - FASCIA_PRECISA_MIN)
+    return POSIZIONE_FASCIA_MIN + proporzione * (POSIZIONE_FASCIA_MAX - POSIZIONE_FASCIA_MIN)
+  }
+  const proporzione = (valore - FASCIA_PRECISA_MAX) / (SLIDER_MAX - FASCIA_PRECISA_MAX)
+  return POSIZIONE_FASCIA_MAX + proporzione * (POSIZIONE_MAX - POSIZIONE_FASCIA_MAX)
+}
+
+function posizioneAValore(posizione: number): number {
+  if (posizione <= POSIZIONE_FASCIA_MIN) return (posizione / POSIZIONE_FASCIA_MIN) * FASCIA_PRECISA_MIN
+  if (posizione <= POSIZIONE_FASCIA_MAX) {
+    const proporzione = (posizione - POSIZIONE_FASCIA_MIN) / (POSIZIONE_FASCIA_MAX - POSIZIONE_FASCIA_MIN)
+    return FASCIA_PRECISA_MIN + proporzione * (FASCIA_PRECISA_MAX - FASCIA_PRECISA_MIN)
+  }
+  const proporzione = (posizione - POSIZIONE_FASCIA_MAX) / (POSIZIONE_MAX - POSIZIONE_FASCIA_MAX)
+  return FASCIA_PRECISA_MAX + proporzione * (SLIDER_MAX - FASCIA_PRECISA_MAX)
+}
+
+export function SalaryInput({ value, onChange }: SalaryInputProps) {
   const [testo, setTesto] = useState(() => formatMigliaia(value))
   const focusedRef = useRef(false)
 
@@ -29,6 +57,8 @@ export function SalaryInput({ value, onChange, min = 0, max = 1_000_000, step = 
     focusedRef.current = false
     setTesto(formatMigliaia(value))
   }
+
+  const posizione = valoreAPosizione(Math.min(Math.max(value, SLIDER_MIN), SLIDER_MAX))
 
   return (
     <div className="salary-input">
@@ -58,13 +88,13 @@ export function SalaryInput({ value, onChange, min = 0, max = 1_000_000, step = 
       <input
         className="salary-input__slider"
         type="range"
-        min={min}
-        max={max}
-        step={step}
-        value={Math.min(Math.max(value, min), max)}
-        onChange={(e) => onChange(Number(e.target.value))}
+        min={0}
+        max={POSIZIONE_MAX}
+        step={1}
+        value={posizione}
+        onChange={(e) => onChange(Math.round(posizioneAValore(Number(e.target.value)) / 100) * 100)}
         aria-label="Stipendio lordo annuo, esplorazione rapida"
-        style={{ '--_fill': `${((Math.min(Math.max(value, min), max) - min) / (max - min)) * 100}%` } as CSSProperties}
+        style={{ '--_fill': `${(posizione / POSIZIONE_MAX) * 100}%` } as CSSProperties}
       />
     </div>
   )
