@@ -37,17 +37,22 @@
   margin: 0;
   padding: 0;
   list-style: none;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-2) var(--space-6);
+  columns: 2;
+  column-gap: var(--space-6);
 }
 
 .product-note__list li {
   position: relative;
   padding-left: var(--space-4);
+  margin-bottom: var(--space-4);
   font-size: 0.875rem;
   line-height: 1.55;
   color: var(--color-ink-secondary);
+  break-inside: avoid;
+}
+
+.product-note__list li:last-child {
+  margin-bottom: 0;
 }
 
 .product-note__list li::before {
@@ -82,6 +87,6 @@
 
 @media (max-width: 720px) {
   .product-note__list {
-    grid-template-columns: 1fr;
+    columns: 1;
   }
 }
