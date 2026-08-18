@@ -34,12 +34,7 @@ export function ProductNote() {
         </li>
         <li>
           <strong>Reddito complessivo (RC):</strong> le soglie del cuneo fiscale si riferiscono al RC, non alla RAL.
-          Nel prototipo, avendo la RAL come unica fonte di reddito e nessun onere deducibile, il RC è approssimato a
-          RAL meno i contributi INPS a carico del lavoratore. Nel caso generale, invece, il reddito complessivo è la
-          somma di tutte le categorie di reddito del contribuente (lavoro dipendente, autonomo, impresa, fondiario,
-          capitale, diversi) al netto degli oneri deducibili previsti dall'art. 10 TUIR (es. ulteriori contributi
-          previdenziali, contributi a previdenza complementare, assegni al coniuge separato), ed esclude i redditi
-          soggetti a tassazione separata o sostitutiva.
+          Nel prototipo è approssimato a RAL meno i contributi INPS a carico del lavoratore.
         </li>
         <li>
           <strong>Esclusioni volontarie:</strong> niente carichi di famiglia, bonus rimpatriati o TFR in busta paga.
