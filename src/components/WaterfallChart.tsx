@@ -77,7 +77,9 @@ function costruisciInfo(r: CalculationResult): Record<string, Info> {
       descrizione: '0,80% sull’intero imponibile se supera 23.000€ (non solo sull’eccedenza); zero sotto soglia.',
     },
     cuneoFiscale: {
-      descrizione: 'Solo per redditi fino a 20.000€: un importo non imponibile aggiunto direttamente al netto.',
+      descrizione:
+        'Solo per reddito complessivo fino a 20.000€ (non la RAL): un importo non imponibile aggiunto direttamente al netto.',
+      dettagli: [{ label: 'Reddito complessivo (RC)', valore: formatEuroDecimale(r.imponibileFiscale) }],
     },
     netto: {
       descrizione: 'RAL meno tutte le trattenute sopra, più l’eventuale sgravio: quanto resta in tasca in un anno.',
