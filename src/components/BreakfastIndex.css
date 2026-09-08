@@ -121,3 +121,17 @@
   font-size: 0.6875rem;
   color: var(--color-ink-muted);
 }
+
+/* Da telefono il toggle Mese/Anno prende tutta la larghezza del pannello e si divide in
+   due metà uguali, invece di restare una pillola stretta a sinistra. Scoped qui: gli altri
+   SegmentedToggle (mensilità, focus waterfall) non cambiano. */
+@media (max-width: 560px) {
+  .breakfast-index__panel .segmented-toggle {
+    display: flex;
+    width: 100%;
+  }
+
+  .breakfast-index__panel .segmented-toggle button {
+    flex: 1;
+  }
+}
