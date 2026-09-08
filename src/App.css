@@ -86,7 +86,10 @@
   display: grid;
   grid-template-columns: minmax(0, 22rem) minmax(0, 1fr);
   gap: var(--space-5);
-  align-items: stretch;
+  /* Ogni colonna prende la sua altezza: col confronto attivo la colonna input è più alta
+     (campo in più) e stirare quella del netto per pareggiarla lasciava un grosso vuoto
+     dentro la card. Meglio due colonne di altezza diversa che una card mezza vuota. */
+  align-items: start;
 }
 
 .calculator__panel {
@@ -121,7 +124,7 @@
 }
 
 .result-share {
-  align-self: flex-end;
+  align-self: flex-start;
   margin-top: auto;
 }
 
@@ -137,7 +140,7 @@
   display: grid;
   grid-template-columns: minmax(0, 1fr) 11rem;
   gap: var(--space-5);
-  align-items: stretch;
+  align-items: start;
 }
 
 .mensilita-field {

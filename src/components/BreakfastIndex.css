@@ -136,24 +136,22 @@
   }
 }
 
-/* Da desktop (≥861px) le card input e netto stanno affiancate e a pari altezza
-   (align-items: stretch): lì aprire/chiudere "Colazioni" faceva crescere di poco la riga
-   e quindi anche la card RAL. Qui lo spazio del pannello a tendina è riservato sempre (da
-   chiuso è solo nascosto in dissolvenza), così togglarlo non cambia l'altezza di nulla.
-   Sotto gli 861px le card sono impilate: l'apertura a fisarmonica in flusso va bene. */
-@media (min-width: 861px) {
-  .breakfast-index__panel-wrap,
-  .breakfast-index__panel-wrap.is-open {
-    grid-template-rows: 1fr;
-    transition: none;
+/* Da tablet/desktop "Colazioni" sta in una colonna a fianco del netto, quasi tutta vuota:
+   il pannello a tendina si apre lì sopra in overlay (position: absolute), senza contribuire
+   all'altezza della riga. Così aprirlo/chiuderlo non muove né allunga le card, e la card
+   del netto resta della sua altezza naturale (niente spazio riservato a vuoto). La ✕ del
+   condividi è spostata a sinistra (App.css) per non finire sotto l'overlay. Su mobile
+   resta l'apertura a fisarmonica in flusso: colonna singola, nessuno spazio da riusare. */
+@media (min-width: 561px) {
+  .breakfast-index {
+    position: relative;
   }
 
-  .breakfast-index__panel {
-    transition: opacity 160ms ease;
-  }
-
-  .breakfast-index__panel-wrap:not(.is-open) .breakfast-index__panel {
-    opacity: 0;
-    visibility: hidden;
+  .breakfast-index__panel-wrap {
+    position: absolute;
+    top: calc(100% + var(--space-3));
+    left: 0;
+    right: 0;
+    z-index: 1;
   }
 }
