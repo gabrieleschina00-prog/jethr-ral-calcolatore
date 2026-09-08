@@ -135,3 +135,25 @@
     flex: 1;
   }
 }
+
+/* Da desktop (≥861px) le card input e netto stanno affiancate e a pari altezza
+   (align-items: stretch): lì aprire/chiudere "Colazioni" faceva crescere di poco la riga
+   e quindi anche la card RAL. Qui lo spazio del pannello a tendina è riservato sempre (da
+   chiuso è solo nascosto in dissolvenza), così togglarlo non cambia l'altezza di nulla.
+   Sotto gli 861px le card sono impilate: l'apertura a fisarmonica in flusso va bene. */
+@media (min-width: 861px) {
+  .breakfast-index__panel-wrap,
+  .breakfast-index__panel-wrap.is-open {
+    grid-template-rows: 1fr;
+    transition: none;
+  }
+
+  .breakfast-index__panel {
+    transition: opacity 160ms ease;
+  }
+
+  .breakfast-index__panel-wrap:not(.is-open) .breakfast-index__panel {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
