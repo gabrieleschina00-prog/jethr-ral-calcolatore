@@ -1,48 +1,39 @@
+import type { Translations } from '../i18n/translations'
 import './ProductNote.css'
 
-/** La nota di trasparenza del prototipo: chiusa per default, un solo click la apre tutta. */
-export function ProductNote() {
+interface ProductNoteProps {
+  t: Translations['productNote']
+}
+
+/** La nota di trasparenza del prototipo: chiusa per default, un solo click la apre tutta.
+ * I nomi ufficiali delle circolari citate come fonte restano in italiano in entrambe le
+ * lingue, come si farebbe con il titolo di un documento ufficiale straniero. */
+export function ProductNote({ t }: ProductNoteProps) {
   return (
     <details className="product-note">
-      <summary className="product-note__summary">Note</summary>
+      <summary className="product-note__summary">{t.summary}</summary>
       <ul className="product-note__list">
-        <li>
-          <strong>Profilo:</strong> tempo indeterminato, full-time, residenza Milano (Lombardia).
-        </li>
-        <li>
-          <strong>Calcolo IRPEF &amp; INPS:</strong> basato sulle aliquote e sugli scaglioni vigenti (cuneo fiscale
-          2026 incluso).
-          <span className="product-note__fonti">
-            Fonti:{' '}
-            <a
-              href="https://www.agenziaentrate.gov.it/portale/documents/20143/8410823/Circolare+lavoro+dipendente+LB2025+DD+IRPEF+n.+4+del+16+maggio+2025.pdf/36979eaa-9fc5-a4ec-a7aa-136497c53f91"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Agenzia delle Entrate, circolare n. 4/E
-            </a>{' '}
-            e{' '}
-            <a
-              href="https://www.inps.it/it/it/inps-comunica/atti/circolari-messaggi-e-normativa/dettaglio.circolari-e-messaggi.2026.01.circolare-numero-6-del-30-01-2026_15151.html"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              circolare INPS n. 6/2026
-            </a>
-            .
-          </span>
-        </li>
-        <li>
-          <strong>Reddito complessivo (RC):</strong> le soglie del cuneo fiscale si riferiscono al RC, non alla RAL.
-          Nel prototipo è approssimato a RAL meno i contributi INPS a carico del lavoratore.
-        </li>
-        <li>
-          <strong>Esclusioni volontarie:</strong> niente carichi di famiglia, bonus rimpatriati o TFR in busta paga.
-        </li>
-        <li>
-          <strong>Mensilità:</strong> selezionabili tra 12, 13 e 14.
-        </li>
+        {t.items.map((item) => (
+          <li key={item.title}>
+            <strong>{item.title}</strong> {item.body}
+            {item.source && (
+              <span className="product-note__fonti">
+                {t.sourcesLabel}:{' '}
+                {item.source.map((s, si, arr) => (
+                  <span key={s.url}>
+                    {si > 0 && (si === arr.length - 1 ? ` ${t.and} ` : ', ')}
+                    <a href={s.url} target="_blank" rel="noopener noreferrer">
+                      {s.label}
+                    </a>
+                  </span>
+                ))}
+                .
+              </span>
+            )}
+          </li>
+        ))}
       </ul>
+      <span className="product-note__updated">{t.updated}</span>
     </details>
   )
 }

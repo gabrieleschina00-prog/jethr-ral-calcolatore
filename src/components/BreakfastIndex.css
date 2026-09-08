@@ -83,12 +83,32 @@
   gap: 2px;
 }
 
+.breakfast-index__count-row {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
 .breakfast-index__count {
   margin: 0;
   font-size: 1.75rem;
   font-weight: 800;
   letter-spacing: -0.01em;
   color: var(--color-accent);
+}
+
+.breakfast-index__count--higher {
+  color: var(--color-accent);
+}
+
+.breakfast-index__count--lower {
+  color: var(--color-ink-muted);
+}
+
+.breakfast-index__arrow {
+  font-size: 1.25rem;
+  color: var(--color-ink-muted);
 }
 
 .breakfast-index__label {

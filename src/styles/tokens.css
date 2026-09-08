@@ -12,30 +12,58 @@
  */
 :root {
   /* Superfici (scala dalla più scura alla più chiara: bg < surface < surface-raised) */
-  --color-bg: #0d1318;
-  --color-surface: #141c22;
-  --color-surface-raised: #1a232b;
-  --color-border: rgba(255, 255, 255, 0.09);
-  --color-border-strong: rgba(255, 255, 255, 0.18);
+  --color-bg: #17171a;
+  --color-surface: #1e1e21;
+  --color-surface-raised: #26262a;
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-border-strong: rgba(255, 255, 255, 0.16);
 
   /* Inchiostro */
-  --color-ink: #eef3f7;
-  --color-ink-secondary: #a6b4c0;
-  --color-ink-muted: #71808d;
+  --color-ink: #f1f0ec;
+  --color-ink-secondary: #b0ada5;
+  --color-ink-muted: #85817a;
 
-  /* Brand — azzurro */
-  --color-accent: #4a9cd6;
-  --color-accent-strong: #6fb3e0;
-  --color-accent-tint: #182a3a;
+  /* Brand — grafite neutro + ambra (niente blu: --color-accent-contrast è il colore di
+     testo/icona da usare SOPRA un fondo --color-accent, calcolato per contrasto). */
+  --color-accent: #e0a458;
+  --color-accent-strong: #f0c184;
+  --color-accent-tint: #3a2c18;
+  --color-accent-contrast: #201200;
 
-  /* Waterfall / semantica delta (validate: PASS su tutti i check con etichette dirette) */
+  /* Waterfall / semantica delta. validate_palette.js (skill dataviz): PASS su tutti i
+     check con etichette dirette. */
   --color-decrease: #cc6a4a;
   --color-decrease-tint: #2b2019;
   --color-increase: #1f9e6e;
   --color-increase-tint: #142a21;
 
-  /* Tipografia — stack di sistema, nessun font caricato da servizi esterni */
-  --font-sans: -apple-system, 'SF Pro Text', 'Segoe UI', system-ui, Roboto, sans-serif;
+  /* Variante "da grafico" dell'ambra del brand: stessa famiglia cromatica dei pulsanti,
+     ma spostata verso il giallo per restare a distanza di sicurezza CVD dal rosso delle
+     trattenute quando compaiono nella stessa barra del waterfall (--color-accent liscio
+     fallisce quel check). Usata solo per la barra "Netto" nel waterfall. */
+  --color-accent-chart: #cfa823;
+
+  /* Texture di sfondo: scena sparsa (trend, mini bar-chart, calcolatrice, monete) su un
+     tile grande (480x480) ripetuto su tutto il body (vedi index.css) — grande abbastanza
+     da non leggersi come pattern ovvio. Volutamente minimale e quasi trasparente (opacità
+     incorporata nel tratto, non nel livello CSS): deve notarsi solo guardando bene, mai
+     competere con l'interfaccia. Resta invisibile sotto le card (fondo pieno), visibile
+     solo negli spazi vuoti della pagina. Stessa scena, ricodificata a mano, in entrambi i
+     temi — niente asset esterni. */
+  --pattern-money: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='480' height='480'%3E%3Cg fill='none' stroke='%23e0a458' stroke-opacity='0.07' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cg transform='translate(18 24) rotate(-7)'%3E%3Cpath d='M4 66 L28 44 L48 56 L70 20 L92 8'/%3E%3Cpath d='M80 10 L92 8 L90 20'/%3E%3C/g%3E%3Cg transform='translate(300 16) rotate(6)'%3E%3Crect x='0' y='36' width='9' height='14'/%3E%3Crect x='14' y='26' width='9' height='24'/%3E%3Crect x='28' y='16' width='9' height='34'/%3E%3Crect x='42' y='6' width='9' height='44'/%3E%3C/g%3E%3Cg transform='translate(360 130) rotate(-5)'%3E%3Crect x='0' y='0' width='68' height='86' rx='8'/%3E%3Crect x='9' y='9' width='50' height='17' rx='2'/%3E%3Crect x='9' y='38' width='9' height='9' rx='2'/%3E%3Crect x='23' y='38' width='9' height='9' rx='2'/%3E%3Crect x='37' y='38' width='9' height='9' rx='2'/%3E%3Crect x='9' y='53' width='9' height='9' rx='2'/%3E%3Crect x='23' y='53' width='9' height='9' rx='2'/%3E%3Crect x='37' y='53' width='9' height='9' rx='2'/%3E%3Crect x='9' y='68' width='9' height='9' rx='2'/%3E%3Crect x='23' y='68' width='9' height='9' rx='2'/%3E%3Crect x='37' y='68' width='9' height='9' rx='2'/%3E%3C/g%3E%3Cg transform='translate(28 300) rotate(-4)'%3E%3Ccircle cx='32' cy='34' r='24'/%3E%3Ccircle cx='62' cy='48' r='16'/%3E%3C/g%3E%3Cg transform='translate(200 340) rotate(2)'%3E%3Cpath d='M0 60 C42 8 96 108 184 16'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  --pattern-repeat: repeat;
+  --pattern-size: 480px 480px;
+  --pattern-position: top left;
+  --pattern-attachment: scroll;
+
+  /* Sottolineatura a mano libera (due tratti) sotto la parte enfatizzata del titolo
+     (vedi App.css .page__title-emphasis). Si stira sull'intera larghezza del testo via
+     background-size, quindi funziona con qualunque lunghezza di frase/lingua. */
+  --underline-emphasis: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 40'%3E%3Cg fill='none' stroke='%23e0a458' stroke-opacity='0.6' stroke-width='5' stroke-linecap='round'%3E%3Cpath d='M0 15 C60 2 120 26 180 8 C220 0 260 16 300 6'/%3E%3Cpath d='M0 26 C70 36 130 18 190 30 C230 38 265 24 296 30'/%3E%3C/g%3E%3C/svg%3E");
+
+  /* Tipografia — Wix Madefor Display (Google Fonts, caricato in index.html), con lo
+     stack di sistema come fallback prima che carichi o se il font non è disponibile. */
+  --font-sans: 'Wix Madefor Display', -apple-system, 'SF Pro Text', 'Segoe UI', system-ui, Roboto, sans-serif;
   --font-mono: ui-monospace, 'SF Mono', 'Cascadia Code', Menlo, monospace;
 
   /* Spaziature */
@@ -59,49 +87,71 @@
    i token scuri di base — se è scuro, i token di base (già scuri) restano. */
 @media (prefers-color-scheme: light) {
   :root:not([data-theme]) {
-    --color-bg: #f2f5f8;
-    --color-surface: #fdfeff;
+    --color-bg: #f2f1ee;
+    --color-surface: #fdfdfb;
     --color-surface-raised: #ffffff;
-    --color-border: rgba(15, 30, 43, 0.1);
-    --color-border-strong: rgba(15, 30, 43, 0.2);
+    --color-border: rgba(25, 23, 20, 0.09);
+    --color-border-strong: rgba(25, 23, 20, 0.18);
 
-    --color-ink: #14212c;
-    --color-ink-secondary: #4f6273;
-    --color-ink-muted: #8598a6;
+    --color-ink: #1c1a16;
+    --color-ink-secondary: #524e45;
+    --color-ink-muted: #726d62;
 
-    --color-accent: #1f6fa8;
-    --color-accent-strong: #175a87;
-    --color-accent-tint: #dceaf4;
+    --color-accent: #96591c;
+    --color-accent-strong: #6e4114;
+    --color-accent-tint: #f6e8d2;
+    --color-accent-contrast: #fbf7f0;
 
     --color-decrease: #c1502e;
     --color-decrease-tint: #f4ded4;
     --color-increase: #2f8f5b;
     --color-increase-tint: #dcefe3;
 
-    --shadow-card: 0 1px 2px rgba(15, 30, 43, 0.04), 0 12px 32px -16px rgba(15, 30, 43, 0.16);
+    --color-accent-chart: #c99a2e;
+
+    --pattern-money: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='480' height='480'%3E%3Cg fill='none' stroke='%2396591c' stroke-opacity='0.09' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cg transform='translate(18 24) rotate(-7)'%3E%3Cpath d='M4 66 L28 44 L48 56 L70 20 L92 8'/%3E%3Cpath d='M80 10 L92 8 L90 20'/%3E%3C/g%3E%3Cg transform='translate(300 16) rotate(6)'%3E%3Crect x='0' y='36' width='9' height='14'/%3E%3Crect x='14' y='26' width='9' height='24'/%3E%3Crect x='28' y='16' width='9' height='34'/%3E%3Crect x='42' y='6' width='9' height='44'/%3E%3C/g%3E%3Cg transform='translate(360 130) rotate(-5)'%3E%3Crect x='0' y='0' width='68' height='86' rx='8'/%3E%3Crect x='9' y='9' width='50' height='17' rx='2'/%3E%3Crect x='9' y='38' width='9' height='9' rx='2'/%3E%3Crect x='23' y='38' width='9' height='9' rx='2'/%3E%3Crect x='37' y='38' width='9' height='9' rx='2'/%3E%3Crect x='9' y='53' width='9' height='9' rx='2'/%3E%3Crect x='23' y='53' width='9' height='9' rx='2'/%3E%3Crect x='37' y='53' width='9' height='9' rx='2'/%3E%3Crect x='9' y='68' width='9' height='9' rx='2'/%3E%3Crect x='23' y='68' width='9' height='9' rx='2'/%3E%3Crect x='37' y='68' width='9' height='9' rx='2'/%3E%3C/g%3E%3Cg transform='translate(28 300) rotate(-4)'%3E%3Ccircle cx='32' cy='34' r='24'/%3E%3Ccircle cx='62' cy='48' r='16'/%3E%3C/g%3E%3Cg transform='translate(200 340) rotate(2)'%3E%3Cpath d='M0 60 C42 8 96 108 184 16'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    --pattern-repeat: repeat;
+    --pattern-size: 480px 480px;
+    --pattern-position: top left;
+    --pattern-attachment: scroll;
+
+    --underline-emphasis: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 40'%3E%3Cg fill='none' stroke='%2396591c' stroke-opacity='0.6' stroke-width='5' stroke-linecap='round'%3E%3Cpath d='M0 15 C60 2 120 26 180 8 C220 0 260 16 300 6'/%3E%3Cpath d='M0 26 C70 36 130 18 190 30 C230 38 265 24 296 30'/%3E%3C/g%3E%3C/svg%3E");
+
+    --shadow-card: 0 1px 2px rgba(25, 23, 20, 0.05), 0 12px 32px -16px rgba(25, 23, 20, 0.18);
   }
 }
 
 /* Scelta esplicita dell'utente (pulsante tema): vince sempre sul sistema. */
 :root[data-theme='light'] {
-  --color-bg: #f2f5f8;
-  --color-surface: #fdfeff;
+  --color-bg: #f2f1ee;
+  --color-surface: #fdfdfb;
   --color-surface-raised: #ffffff;
-  --color-border: rgba(15, 30, 43, 0.1);
-  --color-border-strong: rgba(15, 30, 43, 0.2);
+  --color-border: rgba(25, 23, 20, 0.09);
+  --color-border-strong: rgba(25, 23, 20, 0.18);
 
-  --color-ink: #14212c;
-  --color-ink-secondary: #4f6273;
-  --color-ink-muted: #8598a6;
+  --color-ink: #1c1a16;
+  --color-ink-secondary: #524e45;
+  --color-ink-muted: #726d62;
 
-  --color-accent: #1f6fa8;
-  --color-accent-strong: #175a87;
-  --color-accent-tint: #dceaf4;
+  --color-accent: #96591c;
+  --color-accent-strong: #6e4114;
+  --color-accent-tint: #f6e8d2;
+  --color-accent-contrast: #fbf7f0;
 
   --color-decrease: #c1502e;
   --color-decrease-tint: #f4ded4;
   --color-increase: #2f8f5b;
   --color-increase-tint: #dcefe3;
 
-  --shadow-card: 0 1px 2px rgba(15, 30, 43, 0.04), 0 12px 32px -16px rgba(15, 30, 43, 0.16);
+  --color-accent-chart: #c99a2e;
+
+  --pattern-money: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='480' height='480'%3E%3Cg fill='none' stroke='%2396591c' stroke-opacity='0.09' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cg transform='translate(18 24) rotate(-7)'%3E%3Cpath d='M4 66 L28 44 L48 56 L70 20 L92 8'/%3E%3Cpath d='M80 10 L92 8 L90 20'/%3E%3C/g%3E%3Cg transform='translate(300 16) rotate(6)'%3E%3Crect x='0' y='36' width='9' height='14'/%3E%3Crect x='14' y='26' width='9' height='24'/%3E%3Crect x='28' y='16' width='9' height='34'/%3E%3Crect x='42' y='6' width='9' height='44'/%3E%3C/g%3E%3Cg transform='translate(360 130) rotate(-5)'%3E%3Crect x='0' y='0' width='68' height='86' rx='8'/%3E%3Crect x='9' y='9' width='50' height='17' rx='2'/%3E%3Crect x='9' y='38' width='9' height='9' rx='2'/%3E%3Crect x='23' y='38' width='9' height='9' rx='2'/%3E%3Crect x='37' y='38' width='9' height='9' rx='2'/%3E%3Crect x='9' y='53' width='9' height='9' rx='2'/%3E%3Crect x='23' y='53' width='9' height='9' rx='2'/%3E%3Crect x='37' y='53' width='9' height='9' rx='2'/%3E%3Crect x='9' y='68' width='9' height='9' rx='2'/%3E%3Crect x='23' y='68' width='9' height='9' rx='2'/%3E%3Crect x='37' y='68' width='9' height='9' rx='2'/%3E%3C/g%3E%3Cg transform='translate(28 300) rotate(-4)'%3E%3Ccircle cx='32' cy='34' r='24'/%3E%3Ccircle cx='62' cy='48' r='16'/%3E%3C/g%3E%3Cg transform='translate(200 340) rotate(2)'%3E%3Cpath d='M0 60 C42 8 96 108 184 16'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  --pattern-repeat: repeat;
+  --pattern-size: 480px 480px;
+  --pattern-position: top left;
+  --pattern-attachment: scroll;
+
+  --underline-emphasis: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 40'%3E%3Cg fill='none' stroke='%2396591c' stroke-opacity='0.6' stroke-width='5' stroke-linecap='round'%3E%3Cpath d='M0 15 C60 2 120 26 180 8 C220 0 260 16 300 6'/%3E%3Cpath d='M0 26 C70 36 130 18 190 30 C230 38 265 24 296 30'/%3E%3C/g%3E%3C/svg%3E");
+
+  --shadow-card: 0 1px 2px rgba(25, 23, 20, 0.05), 0 12px 32px -16px rgba(25, 23, 20, 0.18);
 }

@@ -1,0 +1,64 @@
+.regional-note {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-5);
+  background: var(--color-accent-tint);
+  border-left: 3px solid var(--color-accent);
+  border-radius: var(--radius-md);
+}
+
+.regional-note__title {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--color-ink);
+}
+
+.regional-note__text {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--color-ink-secondary);
+}
+
+.regional-note__text strong {
+  color: var(--color-ink);
+  font-weight: 700;
+}
+
+/* Stessa enfasi (grassetto) delle altre parole marcate, ma in ambra del brand: evidenzia
+   la riga che rassicura di più — "la gran parte non cambia in base a dove vivi". */
+.regional-note__text strong.regional-note__em-accent {
+  color: var(--color-accent);
+}
+
+.regional-note__estimate {
+  margin: var(--space-1) 0 0;
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-surface-raised);
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--color-ink-secondary);
+}
+
+.regional-note__estimate strong {
+  color: var(--color-accent);
+  font-weight: 800;
+}
+
+.regional-note__sources {
+  margin: 0;
+  font-size: 0.8125rem;
+  color: var(--color-ink-muted);
+}
+
+.regional-note__sources a {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.regional-note__sources a:hover {
+  color: var(--color-accent-strong);
+}

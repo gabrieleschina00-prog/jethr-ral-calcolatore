@@ -7,6 +7,10 @@
 }
 
 .segmented-toggle button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.5rem;
   border: none;
   background: transparent;
   padding: var(--space-1) var(--space-4);
@@ -21,5 +25,5 @@
 .segmented-toggle button.is-active {
   background: var(--color-surface-raised);
   color: var(--color-ink);
-  box-shadow: 0 1px 3px rgba(15, 30, 43, 0.15);
+  box-shadow: 0 1px 3px rgba(25, 23, 20, 0.15);
 }

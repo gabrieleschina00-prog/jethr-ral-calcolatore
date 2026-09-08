@@ -1,0 +1,121 @@
+.compare-ral__cta {
+  align-self: flex-start;
+  border: none;
+  background: transparent;
+  padding: 0;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+.compare-ral__cta:hover {
+  color: var(--color-accent-strong);
+}
+
+.compare-ral {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.compare-ral__label {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.compare-ral__field {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.compare-ral__step {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  flex-shrink: 0;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 999px;
+  background: var(--color-surface-raised);
+  font-size: 1.125rem;
+  line-height: 1;
+  color: var(--color-ink-secondary);
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: border-color 120ms ease, color 120ms ease, transform 120ms ease;
+}
+
+.compare-ral__step:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.compare-ral__step:active {
+  transform: scale(0.92);
+}
+
+.compare-ral__input {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  background: var(--color-surface-raised);
+  border: 1.5px solid var(--color-border-strong);
+  border-radius: var(--radius-md);
+  transition: border-color 120ms ease, box-shadow 120ms ease;
+}
+
+.compare-ral__input:focus-within {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 4px var(--color-accent-tint);
+}
+
+.compare-ral__symbol {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--color-ink-muted);
+}
+
+.compare-ral__number {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--color-ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.compare-ral__remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  flex-shrink: 0;
+  border: none;
+  background: transparent;
+  border-radius: 999px;
+  font-size: 0.875rem;
+  color: var(--color-ink-muted);
+  cursor: pointer;
+  transition: color 120ms ease, background 120ms ease;
+}
+
+.compare-ral__remove:hover {
+  color: var(--color-decrease);
+  background: var(--color-decrease-tint);
+}

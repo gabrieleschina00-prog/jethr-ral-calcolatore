@@ -26,7 +26,9 @@
 
 .result-panel__hero {
   display: flex;
-  align-items: center;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: var(--space-2);
 }
 
 .result-panel__value {
@@ -37,8 +39,66 @@
   color: var(--color-ink);
 }
 
+.result-panel__arrow {
+  font-size: clamp(1.25rem, 2.6vw, 1.625rem);
+  color: var(--color-ink-muted);
+}
+
+.result-panel__value--higher {
+  color: var(--color-ink);
+}
+
+.result-panel__value--lower {
+  color: var(--color-ink-muted);
+}
+
+.result-panel__delta {
+  margin: var(--space-1) 0 0;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.result-panel__delta--up {
+  color: var(--color-increase);
+}
+
+.result-panel__delta--down {
+  color: var(--color-decrease);
+}
+
 .result-panel__footnote {
   margin: var(--space-2) 0 0;
   font-size: 0.75rem;
   color: var(--color-ink-muted);
+}
+
+/* Da telefono il pannello è sticky in cima (vedi App.css): senza confronto attivo i due
+   netti vanno affiancati e più compatti, così l'header agganciato resta basso e lascia
+   spazio ai controlli sotto. Col confronto attivo si torna alla colonna, che regge le
+   due cifre + delta per metrica. */
+@media (max-width: 560px) {
+  .result-panel:not(.result-panel--comparing) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: var(--space-4);
+    align-items: start;
+  }
+
+  .result-panel:not(.result-panel--comparing) .result-panel__metric {
+    padding: 0;
+  }
+
+  .result-panel:not(.result-panel--comparing) .result-panel__divider {
+    display: none;
+  }
+
+  .result-panel:not(.result-panel--comparing) .result-panel__value {
+    font-size: 1.5rem;
+  }
+
+  .result-panel:not(.result-panel--comparing) .result-panel__footnote {
+    grid-column: 1 / -1;
+    margin-top: var(--space-1);
+  }
 }

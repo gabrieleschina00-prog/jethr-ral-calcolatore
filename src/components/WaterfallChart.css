@@ -25,10 +25,6 @@
   display: inline-block;
 }
 
-.waterfall__dot--totale {
-  background: var(--color-accent);
-}
-
 .waterfall__dot--diminuzione {
   background: var(--color-decrease);
 }
@@ -41,17 +37,18 @@
   list-style: none;
   margin: 0;
   padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-1);
+  display: grid;
+  grid-template-columns: minmax(0, 11rem) 1fr auto;
+  row-gap: var(--space-1);
 }
 
 .waterfall__row {
+  grid-column: 1 / -1;
   position: relative;
   z-index: 0;
   min-width: 0;
   display: grid;
-  grid-template-columns: minmax(0, 11rem) 1fr auto;
+  grid-template-columns: subgrid;
   align-items: center;
   gap: var(--space-3);
   padding: var(--space-2);
@@ -82,6 +79,7 @@
 }
 
 .waterfall__info-btn {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -100,6 +98,14 @@
   padding: 0;
   cursor: pointer;
   transition: border-color 120ms ease, color 120ms ease;
+}
+
+/* Area di tocco allargata senza cambiare la dimensione visiva del pallino — tenuta
+   moderata (non ~40px pieni) per non invadere la riga sopra/sotto, che è vicina. */
+.waterfall__info-btn::after {
+  content: '';
+  position: absolute;
+  inset: -7px;
 }
 
 .waterfall__info-btn:hover,
@@ -125,7 +131,14 @@
 }
 
 .waterfall__bar--totale {
-  background: var(--color-accent);
+  background: var(--color-ink-secondary);
+}
+
+/* Il netto (risultato finale) prende l'ambra del brand, ma nella variante --color-accent-chart
+   (spostata verso il giallo): l'ambra "liscia" dei pulsanti è troppo vicina al rosso delle
+   trattenute per essere distinguibile in modo affidabile (validate_palette.js, skill dataviz). */
+.waterfall__bar--finale {
+  background: var(--color-accent-chart);
 }
 
 .waterfall__bar--diminuzione {
@@ -187,6 +200,138 @@
   color: var(--color-ink-muted);
 }
 
+.waterfall__popover {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: var(--space-2);
+  right: var(--space-2);
+  z-index: 30;
+  max-height: min(24rem, calc(100vh - 8rem));
+  overflow-y: auto;
+  max-width: 26rem;
+  padding: var(--space-5);
+  background: var(--color-surface-raised);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.03), 0 24px 48px -20px rgba(0, 0, 0, 0.45), 0 0 0 1px var(--color-border);
+  animation: waterfall-tooltip-in 140ms ease;
+}
+
+.waterfall__popover-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-bottom: var(--space-2);
+}
+
+.waterfall__popover-title {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--color-ink);
+}
+
+.waterfall__popover-close {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--color-ink-muted);
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: background 120ms ease, color 120ms ease;
+}
+
+.waterfall__popover-close:hover {
+  background: var(--color-bg);
+  color: var(--color-ink);
+}
+
+.waterfall__popover-text {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--color-ink-secondary);
+}
+
+.waterfall__popover-dettagli {
+  list-style: none;
+  margin: var(--space-3) 0 0;
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.waterfall__popover-dettagli li {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-3);
+  font-size: 0.8125rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-ink-muted);
+}
+
+.waterfall__popover-brackets {
+  margin-top: var(--space-3);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--color-border);
+}
+
+.waterfall__popover-brackets-title {
+  display: block;
+  margin-bottom: var(--space-2);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--color-ink-muted);
+}
+
+.waterfall__popover-brackets ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.waterfall__popover-brackets li {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-3);
+  font-size: 0.8125rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-ink-secondary);
+}
+
+.waterfall__popover--above {
+  top: auto;
+  bottom: calc(100% + 6px);
+}
+
+@media (max-width: 640px) {
+  .waterfall__popover {
+    position: static;
+    margin-top: var(--space-2);
+    max-width: none;
+    max-height: none;
+    overflow-y: visible;
+    animation: none;
+  }
+
+  .waterfall__popover--above {
+    bottom: auto;
+  }
+}
+
 @keyframes waterfall-tooltip-in {
   from {
     opacity: 0;
@@ -199,6 +344,10 @@
 }
 
 @media (max-width: 640px) {
+  .waterfall__rows {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
   .waterfall__row {
     grid-template-columns: minmax(0, 1fr);
     gap: var(--space-1);

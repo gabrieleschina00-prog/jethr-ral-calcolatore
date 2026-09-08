@@ -2,7 +2,8 @@
  * Costanti fiscali e contributive — anno d'imposta 2026.
  *
  * Ogni valore qui dentro è stato verificato tramite ricerca su fonti ufficiali o di settore
- * (non recuperato a memoria) in data 13/08/2026. Le fonti sono citate voce per voce.
+ * (non recuperato a memoria) in data 13/08/2026, riverificato il 08/09/2026 (nessuna
+ * variazione: aliquote e scaglioni 2026 confermati). Le fonti sono citate voce per voce.
  *
  * Semplificazioni deliberate del prototipo (vedi anche AssumptionsNote in UI):
  * - si ignora il massimale contributivo INPS (122.295 €/anno per il 2026): rilevante solo
@@ -104,10 +105,10 @@ export const MENSILITA_OPZIONI = [12, 13, 14] as const
 export type Mensilita = (typeof MENSILITA_OPZIONI)[number]
 export const MENSILITA_DEFAULT: Mensilita = 13
 
-/** Prezzo medio di una colazione al bar (cappuccino + cornetto al banco), usato solo per il
- * tocco ironico "Indice Cornetto & Cappuccino" — non è una fonte fiscale, serve solo a dare
- * un senso di scala al risultato, quindi si usa la media nazionale come proxy per Milano.
+/** Prezzo di una colazione al bar (cappuccino + cornetto al banco), usato solo per il tocco
+ * ironico "Indice Cornetto & Cappuccino" — non è una fonte fiscale, serve solo a dare un
+ * senso di scala al risultato, quindi è arrotondato a 3€ tondi.
  * Fonte: Osservatorio Nazionale Federconsumatori, media nazionale 3,07€ nel 2024 (da 2,95€
  * nel 2022), riportato da Puntarella Rossa:
  * https://www.puntarellarossa.it/2024/02/14/colazione-al-bar-sempre-piu-cara-cornetto-e-cappuccino-oltre-3-euro-ma-non-e-solo-una-questione-di-prezzi/ */
-export const PREZZO_COLAZIONE_MILANO = 3.0
+export const PREZZO_COLAZIONE = 3.0

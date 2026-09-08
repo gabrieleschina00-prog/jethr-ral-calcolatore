@@ -14,6 +14,13 @@
   gap: var(--space-5);
 }
 
+.page__header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-shrink: 0;
+}
+
 .page__header-text {
   max-width: 42rem;
   display: flex;
@@ -21,20 +28,52 @@
   gap: var(--space-3);
 }
 
-.page__eyebrow {
+.page__footer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.page__social {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+}
+
+.page__social-label {
   font-size: 0.75rem;
   font-weight: 700;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: var(--color-accent-strong);
+  color: var(--color-ink-muted);
+}
+
+.page__social-links {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
 }
 
 .page__title {
-  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-size: clamp(2rem, 4.6vw, 3rem);
   font-weight: 800;
   letter-spacing: -0.02em;
-  line-height: 1.1;
+  line-height: 1.15;
   color: var(--color-ink);
+}
+
+.page__title-line {
+  display: block;
+}
+
+.page__title-emphasis {
+  display: inline-block;
+  padding-bottom: 0.22em;
+  background-image: var(--underline-emphasis);
+  background-repeat: no-repeat;
+  background-position: left bottom;
+  background-size: 100% 0.3em;
 }
 
 .page__subtitle {
@@ -66,18 +105,32 @@
   grid-column: 1 / -1;
 }
 
+
+.calculator__section-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
 .calculator__section-title {
   font-size: 1.0625rem;
   font-weight: 700;
   color: var(--color-ink);
 }
 
+.result-share {
+  align-self: flex-end;
+  margin-top: auto;
+}
+
 .result-eyebrow {
   font-size: 0.8125rem;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.02em;
   text-transform: uppercase;
-  color: var(--color-ink-secondary);
+  color: var(--color-accent);
 }
 
 .result-split {
@@ -110,6 +163,19 @@
   .calculator__panel {
     padding: var(--space-5);
   }
+
+  /* Su mobile il pannello del netto sale in cima e resta agganciato al bordo alto mentre
+     si scorre tra input, grafico e note: ogni tocco su +/−, slider o campo aggiorna un
+     numero già in vista, senza doverlo rincorrere con lo scroll. Padding e gap ridotti per
+     tenerlo basso — da agganciato non deve mangiarsi lo schermo e coprire i controlli. */
+  .calculator__panel--result {
+    order: -1;
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    gap: var(--space-3);
+    padding: var(--space-4);
+  }
 }
 
 @media (max-width: 560px) {
@@ -121,5 +187,13 @@
 @media (max-width: 480px) {
   .page {
     padding: var(--space-6) var(--space-4) var(--space-7);
+  }
+
+  .page__header {
+    flex-direction: column-reverse;
+  }
+
+  .page__header-actions {
+    align-self: flex-end;
   }
 }

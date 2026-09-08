@@ -12,14 +12,49 @@
           document.documentElement.setAttribute('data-theme', scelta)
         }
       } catch (e) {}
+
+      // Lingua: di default segue il dispositivo; una scelta esplicita salvata vince. La
+      // impostiamo su <html lang> prima del paint per screen reader e crawler (React poi
+      // riallinea lo stesso attributo, vedi src/i18n/useLanguage.ts).
+      try {
+        var lang = localStorage.getItem('lang')
+        if (lang !== 'it' && lang !== 'en') {
+          var lingue = navigator.languages || [navigator.language || 'en']
+          lang = lingue.some(function (l) {
+            return l && l.toLowerCase().indexOf('it') === 0
+          })
+            ? 'it'
+            : 'en'
+        }
+        document.documentElement.setAttribute('lang', lang)
+      } catch (e) {}
     </script>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Wix+Madefor+Display:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
       content="Calcolatore trasparente della retribuzione netta da RAL lorda, con il percorso di calcolo passo per passo."
     />
-    <title>Assignment - Gabriele x JetHR</title>
+    <title>Calcolatore RAL - Gabriele Schina</title>
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://calcolatore-ral-preview.vercel.app/" />
+    <meta property="og:title" content="Calcolatore RAL - Gabriele Schina" />
+    <meta property="og:description" content="Inserisci la RAL, scopri il netto." />
+    <meta property="og:image" content="https://calcolatore-ral-preview.vercel.app/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Calcolatore RAL - Gabriele Schina" />
+    <meta name="twitter:description" content="Inserisci la RAL, scopri il netto." />
+    <meta name="twitter:image" content="https://calcolatore-ral-preview.vercel.app/og-image.png" />
   </head>
   <body>
     <div id="root"></div>

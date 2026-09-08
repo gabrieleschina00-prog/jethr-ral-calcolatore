@@ -5,8 +5,13 @@ import './SalaryInput.css'
 interface SalaryInputProps {
   value: number
   onChange: (value: number) => void
+  label: string
+  sliderAriaLabel: string
+  stepDownLabel: string
+  stepUpLabel: string
 }
 
+const STEP = 500
 const SLIDER_MIN = 0
 const SLIDER_MAX = 300_000
 const FASCIA_PRECISA_MIN = 15_000
@@ -38,7 +43,7 @@ function posizioneAValore(posizione: number): number {
   return FASCIA_PRECISA_MAX + proporzione * (SLIDER_MAX - FASCIA_PRECISA_MAX)
 }
 
-export function SalaryInput({ value, onChange }: SalaryInputProps) {
+export function SalaryInput({ value, onChange, label, sliderAriaLabel, stepDownLabel, stepUpLabel }: SalaryInputProps) {
   const [testo, setTesto] = useState(() => formatMigliaia(value))
   const focusedRef = useRef(false)
 
@@ -63,26 +68,41 @@ export function SalaryInput({ value, onChange }: SalaryInputProps) {
   return (
     <div className="salary-input">
       <label className="salary-input__label" htmlFor="ral-field">
-        Stipendio lordo annuo (RAL)
+        {label}
       </label>
 
-      <div className="salary-input__field">
-        <span className="salary-input__symbol" aria-hidden="true">
-          €
-        </span>
-        <input
-          id="ral-field"
-          className="salary-input__number"
-          type="text"
-          inputMode="numeric"
-          autoComplete="off"
-          value={testo}
-          onFocus={() => {
-            focusedRef.current = true
-          }}
-          onChange={(e) => handleTextChange(e.target.value)}
-          onBlur={handleBlur}
-        />
+      <div className="salary-input__field-row">
+        <button
+          type="button"
+          className="salary-input__step"
+          onClick={() => onChange(Math.max(0, value - STEP))}
+          aria-label={stepDownLabel}
+        >
+          −
+        </button>
+
+        <div className="salary-input__field">
+          <span className="salary-input__symbol" aria-hidden="true">
+            €
+          </span>
+          <input
+            id="ral-field"
+            className="salary-input__number"
+            type="text"
+            inputMode="numeric"
+            autoComplete="off"
+            value={testo}
+            onFocus={() => {
+              focusedRef.current = true
+            }}
+            onChange={(e) => handleTextChange(e.target.value)}
+            onBlur={handleBlur}
+          />
+        </div>
+
+        <button type="button" className="salary-input__step" onClick={() => onChange(value + STEP)} aria-label={stepUpLabel}>
+          +
+        </button>
       </div>
 
       <input
@@ -93,7 +113,7 @@ export function SalaryInput({ value, onChange }: SalaryInputProps) {
         step={1}
         value={posizione}
         onChange={(e) => onChange(Math.round(posizioneAValore(Number(e.target.value)) / 100) * 100)}
-        aria-label="Stipendio lordo annuo, esplorazione rapida"
+        aria-label={sliderAriaLabel}
         style={{ '--_fill': `${(posizione / POSIZIONE_MAX) * 100}%` } as CSSProperties}
       />
     </div>

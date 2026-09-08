@@ -13,7 +13,12 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
-  background: var(--color-bg);
+  background-color: var(--color-bg);
+  background-image: var(--pattern-money);
+  background-repeat: var(--pattern-repeat);
+  background-position: var(--pattern-position);
+  background-size: var(--pattern-size);
+  background-attachment: var(--pattern-attachment);
   color: var(--color-ink);
   font-family: var(--font-sans);
   font-size: 16px;
