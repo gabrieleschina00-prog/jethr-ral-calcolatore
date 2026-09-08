@@ -21,6 +21,13 @@
   gap: 0;
 }
 
+.compare-ral__label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
 .compare-ral__label {
   font-size: 0.8125rem;
   font-weight: 700;
@@ -60,17 +67,19 @@
   }
 }
 
+/* Stesse misure del campo RAL principale (vedi SalaryInput.css): il campo di confronto
+   dev'essere identico — box, numero, simbolo e pulsanti +/- — non una versione ridotta. */
 .compare-ral__step {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 1.75rem;
+  height: 1.75rem;
   flex-shrink: 0;
   border: 1px solid var(--color-border-strong);
   border-radius: 999px;
   background: var(--color-surface-raised);
-  font-size: 1.125rem;
+  font-size: 0.875rem;
   line-height: 1;
   color: var(--color-ink-secondary);
   cursor: pointer;
@@ -93,7 +102,7 @@
   display: flex;
   align-items: center;
   gap: var(--space-2);
-  padding: var(--space-2) var(--space-3);
+  padding: var(--space-3) var(--space-4);
   background: var(--color-surface-raised);
   border: 1.5px solid var(--color-border-strong);
   border-radius: var(--radius-md);
@@ -106,7 +115,7 @@
 }
 
 .compare-ral__symbol {
-  font-size: 1.125rem;
+  font-size: 1.75rem;
   font-weight: 600;
   color: var(--color-ink-muted);
 }
@@ -117,30 +126,42 @@
   border: none;
   outline: none;
   background: transparent;
-  font-size: 1.25rem;
+  font-size: 2rem;
   font-weight: 700;
   letter-spacing: -0.01em;
   color: var(--color-ink);
   font-variant-numeric: tabular-nums;
 }
 
+/* La ✕ vive nella riga dell'etichetta (non dentro il campo), così la riga del campo resta
+   identica a quella del RAL principale: − campo + . */
 .compare-ral__remove {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 1.75rem;
+  height: 1.75rem;
   flex-shrink: 0;
   border: none;
   background: transparent;
   border-radius: 999px;
-  font-size: 0.875rem;
+  font-size: 0.8125rem;
   color: var(--color-ink-muted);
   cursor: pointer;
+  touch-action: manipulation;
   transition: color 120ms ease, background 120ms ease;
 }
 
 .compare-ral__remove:hover {
   color: var(--color-decrease);
   background: var(--color-decrease-tint);
+}
+
+/* Da mobile i +/- del campo confronto crescono a 44px come nel campo RAL principale. */
+@media (max-width: 860px) {
+  .compare-ral__step {
+    width: 2.75rem;
+    height: 2.75rem;
+    font-size: 1.125rem;
+  }
 }

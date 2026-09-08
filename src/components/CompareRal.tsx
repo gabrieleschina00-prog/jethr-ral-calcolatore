@@ -42,7 +42,18 @@ export function CompareRal({ value, onChange, baseRal, t }: CompareRalProps) {
   return (
     <div className={`compare-ral${attivo ? ' compare-ral--attivo' : ''}`}>
       {attivo ? (
-        <span className="compare-ral__label">{t.label}</span>
+        <div className="compare-ral__label-row">
+          <span className="compare-ral__label">{t.label}</span>
+          <button
+            type="button"
+            className="compare-ral__remove"
+            onClick={() => onChange(null)}
+            aria-label={t.remove}
+            title={t.remove}
+          >
+            ✕
+          </button>
+        </div>
       ) : (
         <button
           type="button"
@@ -80,16 +91,6 @@ export function CompareRal({ value, onChange, baseRal, t }: CompareRalProps) {
 
             <button type="button" className="compare-ral__step" onClick={() => step(STEP)} aria-label={t.stepUp}>
               +
-            </button>
-
-            <button
-              type="button"
-              className="compare-ral__remove"
-              onClick={() => onChange(null)}
-              aria-label={t.remove}
-              title={t.remove}
-            >
-              ✕
             </button>
           </div>
         </div>
