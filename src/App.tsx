@@ -16,6 +16,7 @@ import { ShareButton } from './components/ShareButton'
 import { ThemeToggle } from './components/ThemeToggle'
 import { WaterfallChart } from './components/WaterfallChart'
 import { useLanguage } from './i18n/useLanguage'
+import { useReveal } from './useReveal'
 import { useTheme } from './useTheme'
 import './App.css'
 
@@ -55,6 +56,8 @@ export default function App() {
   const { theme, toggle: toggleTheme } = useTheme()
   const { lang, t, toggle: toggleLanguage } = useLanguage()
 
+  useReveal()
+
   useEffect(() => {
     if (ralConfronto === null) setEsploraConfronto(false)
   }, [ralConfronto])
@@ -71,7 +74,7 @@ export default function App() {
 
   return (
     <div className="page">
-      <header className="page__header">
+      <header className="page__header" data-reveal>
         <div className="page__header-text">
           <h1 className="page__title">
             <span className="page__title-line">{t.header.titlePrefix}</span>
@@ -88,7 +91,7 @@ export default function App() {
       </header>
 
       <main className="calculator">
-        <section className="calculator__panel calculator__panel--input" aria-label={t.salaryInput.label}>
+        <section className="calculator__panel calculator__panel--input" aria-label={t.salaryInput.label} data-reveal>
           <SalaryInput
             value={ral}
             onChange={setRal}
@@ -121,6 +124,7 @@ export default function App() {
           id={RESULT_SECTION_ID}
           className="calculator__panel calculator__panel--result"
           aria-label={t.result.eyebrow}
+          data-reveal
         >
           <span className="result-eyebrow">{t.result.eyebrow}</span>
           <div className="result-split">
@@ -140,6 +144,7 @@ export default function App() {
           id={BREAKDOWN_SECTION_ID}
           className="calculator__panel calculator__panel--wide"
           aria-label={t.waterfall.sectionTitle}
+          data-reveal
         >
           <div className="calculator__section-heading">
             <h2 className="calculator__section-title">{t.waterfall.sectionTitle}</h2>
@@ -158,13 +163,13 @@ export default function App() {
           <WaterfallChart result={waterfallResult} t={t.waterfall} />
         </section>
 
-        <section className="calculator__panel calculator__panel--wide" aria-label={t.dataCards.title}>
+        <section className="calculator__panel calculator__panel--wide" aria-label={t.dataCards.title} data-reveal>
           <DataCards t={t.dataCards} bracketsT={t.waterfall.brackets} />
           <RegionalNote t={t.regionalNote} />
         </section>
       </main>
 
-      <footer className="page__footer">
+      <footer className="page__footer" data-reveal>
         <ProductNote t={t.productNote} />
 
         <div className="page__social">

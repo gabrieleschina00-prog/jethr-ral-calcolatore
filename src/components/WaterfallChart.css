@@ -363,3 +363,38 @@
     animation: none;
   }
 }
+
+/* ---- Ingresso sfalsato delle righe ----------------------------------------
+   Quando la card del percorso di calcolo compare (data-reveal-stagger, gestito
+   da useReveal), le righe entrano una dopo l'altra da sinistra. Il transform
+   è solo visivo: non tocca il subgrid né i totali. */
+[data-reveal-stagger] > .waterfall__row {
+  opacity: 0;
+  transform: translateX(-8px);
+  transition:
+    opacity 380ms ease,
+    transform 380ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+[data-reveal-stagger].is-revealed > .waterfall__row {
+  opacity: 1;
+  transform: none;
+}
+
+[data-reveal-stagger].is-revealed > .waterfall__row:nth-child(1) { transition-delay: 0ms; }
+[data-reveal-stagger].is-revealed > .waterfall__row:nth-child(2) { transition-delay: 45ms; }
+[data-reveal-stagger].is-revealed > .waterfall__row:nth-child(3) { transition-delay: 90ms; }
+[data-reveal-stagger].is-revealed > .waterfall__row:nth-child(4) { transition-delay: 135ms; }
+[data-reveal-stagger].is-revealed > .waterfall__row:nth-child(5) { transition-delay: 180ms; }
+[data-reveal-stagger].is-revealed > .waterfall__row:nth-child(6) { transition-delay: 225ms; }
+[data-reveal-stagger].is-revealed > .waterfall__row:nth-child(7) { transition-delay: 270ms; }
+[data-reveal-stagger].is-revealed > .waterfall__row:nth-child(8) { transition-delay: 315ms; }
+[data-reveal-stagger].is-revealed > .waterfall__row:nth-child(n + 9) { transition-delay: 360ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal-stagger] > .waterfall__row {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

@@ -150,7 +150,7 @@ export function WaterfallChart({ result, t }: WaterfallChartProps) {
         </span>
       </div>
 
-      <ol className="waterfall__rows">
+      <ol className="waterfall__rows" data-reveal-stagger>
         {righe.map((riga, i) => {
           const id = riga.step.id
           const stepText = t.steps[id as StepId]
