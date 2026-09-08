@@ -73,15 +73,15 @@
   color: var(--color-ink-muted);
 }
 
-/* Da telefono il pannello è sticky in cima (vedi App.css): senza confronto attivo i due
-   netti vanno affiancati e più compatti, così l'header agganciato resta basso e lascia
-   spazio ai controlli sotto. Col confronto attivo si torna alla colonna, che regge le
-   due cifre + delta per metrica. */
+/* Da telefono, senza confronto attivo, i due netti vanno affiancati e compatti — ma
+   restano la cifra più grande del pannello: le "colazioni" sotto sono una feature in più,
+   non il dato principale. Col confronto attivo si torna alla colonna, che regge le due
+   cifre + delta per metrica. */
 @media (max-width: 560px) {
   .result-panel:not(.result-panel--comparing) {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    column-gap: var(--space-4);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    column-gap: var(--space-3);
     align-items: start;
   }
 
@@ -94,7 +94,8 @@
   }
 
   .result-panel:not(.result-panel--comparing) .result-panel__value {
-    font-size: 1.5rem;
+    font-size: 1.75rem;
+    white-space: nowrap;
   }
 
   .result-panel:not(.result-panel--comparing) .result-panel__footnote {
