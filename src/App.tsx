@@ -21,6 +21,9 @@ import './App.css'
 
 const RAL_INIZIALE = 25_000
 const BREAKDOWN_SECTION_ID = 'breakdown-section'
+// Su mobile "Esplora il breakdown" scrolla qui invece che alla sezione grafico: il pannello
+// del netto resta in cima allo schermo, con il percorso di calcolo che parte subito sotto.
+const RESULT_SECTION_ID = 'result-section'
 
 /** Legge RAL, mensilità e confronto da un link condiviso (vedi ShareButton), se presenti
  * e validi — così aprire un link copiato ricrea la stessa simulazione. Chiamata una sola
@@ -107,10 +110,18 @@ export default function App() {
 
           <CompareRal value={ralConfronto} onChange={setRalConfronto} baseRal={ral} t={t.compare} />
 
-          <ExploreButton targetId={BREAKDOWN_SECTION_ID} label={t.explore.cta} />
+          <ExploreButton
+            targetId={BREAKDOWN_SECTION_ID}
+            mobileTargetId={RESULT_SECTION_ID}
+            label={t.explore.cta}
+          />
         </section>
 
-        <section className="calculator__panel calculator__panel--result" aria-label={t.result.eyebrow}>
+        <section
+          id={RESULT_SECTION_ID}
+          className="calculator__panel calculator__panel--result"
+          aria-label={t.result.eyebrow}
+        >
           <span className="result-eyebrow">{t.result.eyebrow}</span>
           <div className="result-split">
             <ResultPanel result={result} compareResult={compareResult} t={t.result} compareT={t.compare} />

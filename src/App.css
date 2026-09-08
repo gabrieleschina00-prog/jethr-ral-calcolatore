@@ -164,17 +164,14 @@
     padding: var(--space-5);
   }
 
-  /* Su mobile il pannello del netto sale in cima e resta agganciato al bordo alto mentre
-     si scorre tra input, grafico e note: ogni tocco su +/−, slider o campo aggiorna un
-     numero già in vista, senza doverlo rincorrere con lo scroll. Padding e gap ridotti per
-     tenerlo basso — da agganciato non deve mangiarsi lo schermo e coprire i controlli. */
+  /* Ordine naturale su mobile: input sopra, risultato sotto (niente riordino né aggancio
+     in cima — restava visibile durante tutto lo scroll della pagina, anche oltre il
+     confronto tra i due pannelli). Gap e padding solo leggermente ridotti. */
   .calculator__panel--result {
-    order: -1;
-    position: sticky;
-    top: 0;
-    z-index: 20;
     gap: var(--space-3);
-    padding: var(--space-4);
+    /* "Esplora il breakdown" scrolla qui: lascia un filo d'aria sopra il pannello del
+       netto invece di incollarlo al bordo alto. */
+    scroll-margin-top: var(--space-3);
   }
 }
 
