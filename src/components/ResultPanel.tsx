@@ -51,11 +51,17 @@ function MetricRow({ label, value, compareValue, deltaLabel }: MetricRowProps) {
           </>
         )}
       </div>
-      {isComparing && (
-        <p className={`result-panel__delta result-panel__delta--${delta >= 0 ? 'up' : 'down'}`}>
-          {deltaLabel(formatEuroConSegno(delta), formatPercentualeConSegno(pct))}
-        </p>
-      )}
+      {/* La riga delta vive in un contenitore che anima l'altezza: attivando il confronto la
+          card cresce con una transizione invece di scattare (vedi ResultPanel.css). */}
+      <div className={`result-panel__delta-wrap${isComparing ? ' is-open' : ''}`}>
+        <div className="result-panel__delta-inner">
+          {isComparing && (
+            <p className={`result-panel__delta result-panel__delta--${delta >= 0 ? 'up' : 'down'}`}>
+              {deltaLabel(formatEuroConSegno(delta), formatPercentualeConSegno(pct))}
+            </p>
+          )}
+        </div>
+      </div>
     </div>
   )
 }

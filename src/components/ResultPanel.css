@@ -44,6 +44,49 @@
   color: var(--color-ink-muted);
 }
 
+/* Attivando il confronto: la riga delta cresce in altezza con una transizione (wrap qui
+   sotto), mentre freccia e secondo valore entrano in dissolvenza. Insieme, passare a
+   "modalità confronto" è un'espansione morbida e non uno scatto. */
+.result-panel__delta-wrap {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 240ms ease;
+}
+
+.result-panel__delta-wrap.is-open {
+  grid-template-rows: 1fr;
+}
+
+.result-panel__delta-inner {
+  overflow: hidden;
+  min-height: 0;
+}
+
+@keyframes result-panel-compare-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.result-panel__hero--compare .result-panel__arrow,
+.result-panel__hero--compare .result-panel__arrow + .result-panel__value {
+  animation: result-panel-compare-in 240ms ease both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .result-panel__delta-wrap {
+    transition: none;
+  }
+
+  .result-panel__hero--compare .result-panel__arrow,
+  .result-panel__hero--compare .result-panel__arrow + .result-panel__value {
+    animation: none;
+  }
+}
+
 .result-panel__value--higher {
   color: var(--color-ink);
 }
