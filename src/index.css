@@ -33,13 +33,6 @@ p {
   margin: 0;
 }
 
-/* Titoli in Mona Sans, testo in Wix Madefor Display (stessa coppia di Jet HR) */
-h1,
-h2,
-h3 {
-  font-family: var(--font-display);
-}
-
 button {
   font: inherit;
   color: inherit;
