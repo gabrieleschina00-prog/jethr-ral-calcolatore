@@ -61,9 +61,10 @@
      background-size, quindi funziona con qualunque lunghezza di frase/lingua. */
   --underline-emphasis: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 40'%3E%3Cg fill='none' stroke='%23e0a458' stroke-opacity='0.6' stroke-width='5' stroke-linecap='round'%3E%3Cpath d='M0 15 C60 2 120 26 180 8 C220 0 260 16 300 6'/%3E%3Cpath d='M0 26 C70 36 130 18 190 30 C230 38 265 24 296 30'/%3E%3C/g%3E%3C/svg%3E");
 
-  /* Tipografia — Wix Madefor Display (Google Fonts, caricato in index.html), con lo
-     stack di sistema come fallback prima che carichi o se il font non è disponibile. */
+  /* Tipografia — Wix Madefor Display per il testo, Mona Sans per i titoli
+     (Google Fonts, caricati in index.html), con lo stack di sistema come fallback prima che carichi o se il font non è disponibile. */
   --font-sans: 'Wix Madefor Display', -apple-system, 'SF Pro Text', 'Segoe UI', system-ui, Roboto, sans-serif;
+  --font-display: 'Mona Sans', var(--font-sans);
   --font-mono: ui-monospace, 'SF Mono', 'Cascadia Code', Menlo, monospace;
 
   /* Spaziature */
